@@ -1,6 +1,11 @@
 package com.github.oliverschen.olimq.core;
 
+import com.github.oliverschen.olimq.clinet.OliConsumer;
+import com.github.oliverschen.olimq.clinet.OliProducer;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -13,6 +18,8 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author chenkui
  */
 @Data
+@Builder
+@NoArgsConstructor
 public class OliBroker {
 
     /**
@@ -23,15 +30,37 @@ public class OliBroker {
     /**
      * topic 容器
      */
-    private static ConcurrentHashMap<String, Object> topics = new ConcurrentHashMap<>(64);
+    private static ConcurrentHashMap<String, OliMq> topics = new ConcurrentHashMap<>(64);
 
     /**
      * 创建 topic
      * @param topic 主题名称
-     * @return result
      */
-    public boolean createTopic(String topic) {
+    public void createTopic(String topic) {
         topics.putIfAbsent(topic, new OliMq(topic, CAPITAL));
-        return true;
+    }
+
+    /**
+     * 创建生产者
+     * @return OliProducer
+     */
+    public OliProducer createProducer() {
+        return new OliProducer(this);
+    }
+
+    /**
+     * 创建消费者
+     * @return OliConsumer
+     */
+    public OliConsumer createConsumer() {
+        return new OliConsumer(this);
+    }
+
+    /**
+     * @param topic topic
+     * @return Olimq
+     */
+    public OliMq getTopic(String topic) {
+        return topics.get(topic);
     }
 }
