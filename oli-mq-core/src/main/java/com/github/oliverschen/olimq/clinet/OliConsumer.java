@@ -47,9 +47,15 @@ public class OliConsumer {
      * @return OliMsg
      */
     public <T> OliMsg<T> consumer() {
-        OliMsg<T> msg = mq.consume(offset.get());
-        int andIncrement = offset.getAndIncrement();
-        log.info("consumer offset is [{}]", andIncrement);
+        OliMsg<T> msg = null;
+        try {
+            msg = mq.consume(offset.get());
+            // 消息确认消费成功 ack 之后再增加 offset 位置
+            int andIncrement = offset.getAndIncrement();
+            log.info("consumer offset is [{}]", andIncrement);
+        } catch (Exception e) {
+            log.error("message consumer exception : ：", e);
+        }
         return msg;
     }
 

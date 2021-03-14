@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.concurrent.Future;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -62,8 +63,7 @@ public class OliMq {
      * @param offset 消费位置
      * @return OliMsg
      */
-    @SneakyThrows
-    public <T> OliMsg<T> consume(final Integer offset) {
+    public <T> OliMsg<T> consume(final Integer offset) throws Exception{
         if (offset < 0 || offset > queue.length) {
             throw new OliException("offset is invalid !");
         }
