@@ -47,7 +47,7 @@ public class OliMq {
      * @return 是否添加成功
      */
     public <T> boolean sendMsg(OliMsg<T> msg) {
-        log.info("topic [{}] this offset is [{}] add msg [{}]", this.topic, head.get(), msg);
+        log.info("topic [{}] this head is===> [{}] add msg [{}]", this.topic, head.get(), msg);
         if (queue.length == head.get()) {
             throw new OliException("error: queue is full");
         }
@@ -64,6 +64,11 @@ public class OliMq {
     public <T> OliMsg<T> consume(final Integer offset) throws Exception{
         if (offset < 0 || offset > queue.length) {
             throw new OliException("offset is invalid !");
+        }
+        if (offset.equals(0) && queue[0] == null) {
+            log.warn("offset == 0 and queue[0] is null");
+            // offset 外层要 +1 这里先 -1，当消费者消费是第一个位置没有元素的情况时出现
+            return null;
         }
         OliMsg<T> msg = queue[offset];
         log.info("consume topic [{}], msg info is [{}]", this.topic, msg);
