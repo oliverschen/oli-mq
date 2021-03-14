@@ -5,13 +5,16 @@ import com.github.oliverschen.olimq.core.OliMq;
 import com.github.oliverschen.olimq.core.OliMsg;
 import com.github.oliverschen.olimq.exception.OliException;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @author chenkui
  * 消费者
  */
+@Slf4j
 @NoArgsConstructor
 public class OliConsumer {
 
@@ -19,10 +22,19 @@ public class OliConsumer {
 
     private OliMq mq;
 
+    /**
+     * 记录当前消费者消费位置
+     */
+    private final AtomicInteger offset = new AtomicInteger();
+
     public OliConsumer(OliBroker broker) {
         this.broker = broker;
     }
 
+    /**
+     * 订阅主题
+     * @param topic 主题名称
+     */
     public void subscribe(String topic) {
         OliMq oliMq = this.broker.getTopic(topic);
         Optional.ofNullable(oliMq).orElseThrow(() -> new OliException("topic [" + topic + "] is not found"));
@@ -31,12 +43,14 @@ public class OliConsumer {
 
     /**
      * 真正消费消息
-     * @param timeout 超时时间
      * @param <T> 泛型
      * @return OliMsg
      */
-    public <T> OliMsg<T> consumer(long timeout) {
-        return mq.consume(timeout);
+    public <T> OliMsg<T> consumer() {
+        OliMsg<T> msg = mq.consume(offset.get());
+        int andIncrement = offset.getAndIncrement();
+        log.info("consumer offset is [{}]", andIncrement);
+        return msg;
     }
 
 }

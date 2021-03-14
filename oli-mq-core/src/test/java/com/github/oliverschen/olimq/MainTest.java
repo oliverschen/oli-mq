@@ -17,6 +17,6 @@ public class MainTest {
 
         OliConsumer consumer = broker.createConsumer();
         consumer.subscribe(topic);
-        consumer.consumer(100000);
+        consumer.consumer();
     }
 }

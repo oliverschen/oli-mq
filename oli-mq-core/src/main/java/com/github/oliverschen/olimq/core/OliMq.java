@@ -1,16 +1,19 @@
 package com.github.oliverschen.olimq.core;
 
 
+import com.github.oliverschen.olimq.exception.OliException;
 import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * 阻塞队列
  * 这个类的实例对象保存当前 topic 的数据
+ * 使用数组记录当前生产者生产的消息位置和消费者已经消费的位置
+ * 不足：
+ *     1. 没有持久化，重启之后会丢失数据
+ *     2. 数据保存在内存中，有 OOM 的风险
  * @author chenkui
  */
 @Slf4j
@@ -25,11 +28,17 @@ public class OliMq {
     /**
      * topic 阻塞队列
      */
-    private LinkedBlockingQueue<OliMsg> queue;
+    private OliMsg[] queue;
+
+    /**
+     * 生产者生产位置指针
+     */
+    private final AtomicInteger head = new AtomicInteger(0);
+
 
     public OliMq(final String topic,final Integer capital) {
         this.topic = topic;
-        this.queue = new LinkedBlockingQueue<>(capital);
+        this.queue = new OliMsg[capital];
     }
 
 
@@ -39,18 +48,26 @@ public class OliMq {
      * @return 是否添加成功
      */
     public <T> boolean sendMsg(OliMsg<T> msg) {
-        log.info("topic [{}] add msg [{}]", this.topic, msg);
-        return queue.offer(msg);
+        log.info("topic [{}] this offset is [{}] add msg [{}]", this.topic, head.get(), msg);
+        if (queue.length == head.get()) {
+            throw new OliException("error: queue is full");
+        }
+        queue[head.get()] = msg;
+        head.incrementAndGet();
+        return true;
     }
 
     /**
      * 消费消息
-     * @param timeout 超时
+     * @param offset 消费位置
      * @return OliMsg
      */
     @SneakyThrows
-    public <T> OliMsg<T> consume(long timeout) {
-        OliMsg<T> msg = queue.poll(timeout, TimeUnit.SECONDS);
+    public <T> OliMsg<T> consume(final Integer offset) {
+        if (offset < 0 || offset > queue.length) {
+            throw new OliException("offset is invalid !");
+        }
+        OliMsg<T> msg = queue[offset];
         log.info("consume topic [{}], msg info is [{}]", this.topic, msg);
         return msg;
     }

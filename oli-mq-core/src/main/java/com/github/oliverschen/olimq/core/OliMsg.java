@@ -12,6 +12,9 @@ import java.util.UUID;
 @Data
 public class OliMsg<T> {
 
+    private String omId;
+    private T data;
+
     /**
      * 设置唯一消息ID
      */
@@ -23,7 +26,4 @@ public class OliMsg<T> {
         this();
         this.data = data;
     }
-
-    private String omId;
-    private T data;
 }

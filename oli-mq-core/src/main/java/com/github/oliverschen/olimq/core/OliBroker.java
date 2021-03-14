@@ -2,7 +2,6 @@ package com.github.oliverschen.olimq.core;
 
 import com.github.oliverschen.olimq.clinet.OliConsumer;
 import com.github.oliverschen.olimq.clinet.OliProducer;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,7 +22,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class OliBroker {
 
     /**
-     * 队列的容量
+     * 数组容量
      */
     private static final Integer CAPITAL = 1000;
 
