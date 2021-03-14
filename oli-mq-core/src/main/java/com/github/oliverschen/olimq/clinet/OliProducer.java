@@ -24,8 +24,8 @@ public class OliProducer {
     }
 
     public <T> void send(String topic, OliMsg<T> msg) {
-        OliMq mq = this.broker.getTopic(topic);
-        Optional.ofNullable(mq).orElseThrow(() -> new OliException("topic [" + topic + "] is not found"));
+        OliMq mq = Optional.ofNullable(this.broker.getTopic(topic))
+                .orElseThrow(() -> new OliException("topic [" + topic + "] is not found"));
         boolean b = mq.sendMsg(msg);
         log.info("send msg [{}] to topic [{}] is {}", msg.toString(), topic, b);
     }

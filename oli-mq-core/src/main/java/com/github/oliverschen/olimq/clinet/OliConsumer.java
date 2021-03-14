@@ -36,9 +36,8 @@ public class OliConsumer {
      * @param topic 主题名称
      */
     public void subscribe(String topic) {
-        OliMq oliMq = this.broker.getTopic(topic);
-        Optional.ofNullable(oliMq).orElseThrow(() -> new OliException("topic [" + topic + "] is not found"));
-        this.mq = oliMq;
+        this.mq = Optional.ofNullable(this.broker.getTopic(topic))
+                .orElseThrow(() -> new OliException("topic [" + topic + "] is not found"));
     }
 
     /**

@@ -3,10 +3,8 @@ package com.github.oliverschen.olimq.core;
 
 import com.github.oliverschen.olimq.exception.OliException;
 import lombok.NoArgsConstructor;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.concurrent.Future;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
