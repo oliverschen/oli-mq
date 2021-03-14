@@ -25,7 +25,9 @@ public class OliMq {
     private String topic;
 
     /**
-     * topic 阻塞队列
+     * 消息数组：数组的形式记录，设置消费指针和生产指针
+     * 消费指针：当前消费者消费消息的偏移位置
+     * 生产指针：当前生产者生产消息的偏移位置
      */
     private OliMsg[] queue;
 
@@ -60,6 +62,7 @@ public class OliMq {
      * 消费消息
      * @param offset 消费位置
      * @return OliMsg
+     * 抛出异常让外层可以捕获到，以便进行消息是否消费成功，实现一个简单的 ack 机制
      */
     public <T> OliMsg<T> consume(final Integer offset) throws Exception{
         if (offset < 0 || offset > queue.length) {
