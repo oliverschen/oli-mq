@@ -16,6 +16,7 @@
 
     <modules>
         <module>oli-mq-core</module>
+        <module>oli-mq-common</module>
     </modules>
 
     <properties>
