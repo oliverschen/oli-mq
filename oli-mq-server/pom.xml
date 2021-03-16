@@ -3,12 +3,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.4.3</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <groupId>com.github.oliverschen</groupId>
+        <artifactId>oli-mq</artifactId>
+        <version>0.0.1</version>
     </parent>
-    <groupId>com.github.oliverschen</groupId>
+
+
     <artifactId>oli-mq-server</artifactId>
     <version>0.0.1</version>
     <name>oli-mq-server</name>
