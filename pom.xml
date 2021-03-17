@@ -18,6 +18,7 @@
         <module>oli-mq-core</module>
         <module>oli-mq-common</module>
         <module>oli-mq-server</module>
+        <module>oli-mq-client</module>
     </modules>
 
     <properties>
