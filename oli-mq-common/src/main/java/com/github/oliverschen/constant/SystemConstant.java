@@ -6,4 +6,7 @@ package com.github.oliverschen.constant;
 public interface SystemConstant {
 
     String SYSTEM_NAME = "/oli";
+
+
+    String OK = "ok";
 }
