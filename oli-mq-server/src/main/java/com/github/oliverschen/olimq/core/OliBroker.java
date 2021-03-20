@@ -1,7 +1,8 @@
 package com.github.oliverschen.olimq.core;
 
-import com.github.oliverschen.olimq.clinet.OliConsumer;
-import com.github.oliverschen.olimq.clinet.OliProducer;
+
+import com.github.oliverschen.olimq.pojo.OliConsumer;
+import com.github.oliverschen.olimq.pojo.OliProducer;
 
 import java.util.concurrent.ConcurrentHashMap;
 

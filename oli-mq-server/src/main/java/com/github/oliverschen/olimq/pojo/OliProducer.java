@@ -1,11 +1,11 @@
-package com.github.oliverschen.olimq.clinet;
+package com.github.oliverschen.olimq.pojo;
 
 import com.github.oliverschen.olimq.core.OliBroker;
 import com.github.oliverschen.olimq.core.OliMq;
-import com.github.oliverschen.olimq.core.OliMsg;
 import com.github.oliverschen.olimq.exception.OliException;
-import lombok.NoArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Optional;
 
@@ -13,9 +13,9 @@ import java.util.Optional;
  * @author chenkui
  * 生产者
  */
-@Slf4j
-@NoArgsConstructor
 public class OliProducer {
+
+    Logger log = LoggerFactory.getLogger(OliProducer.class);
 
     private OliBroker broker;
 
