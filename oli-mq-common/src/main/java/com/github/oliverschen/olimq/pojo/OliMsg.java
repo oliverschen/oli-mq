@@ -1,4 +1,4 @@
-package com.github.oliverschen.pojo;
+package com.github.oliverschen.olimq.pojo;
 
 
 import java.util.UUID;

@@ -1,4 +1,4 @@
-package com.github.oliverschen.constant;
+package com.github.oliverschen.olimq.constant;
 
 /**
  * @author ck

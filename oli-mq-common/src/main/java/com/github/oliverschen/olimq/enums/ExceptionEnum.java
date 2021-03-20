@@ -1,4 +1,4 @@
-package com.github.oliverschen.enums;
+package com.github.oliverschen.olimq.enums;
 
 
 /**

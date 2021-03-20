@@ -1,7 +1,7 @@
 package com.github.oliverschen.olimq.core;
 
-import com.github.oliverschen.exception.OliException;
-import com.github.oliverschen.pojo.OliMsg;
+import com.github.oliverschen.olimq.exception.OliException;
+import com.github.oliverschen.olimq.pojo.OliMsg;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 

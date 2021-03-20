@@ -1,4 +1,4 @@
-package com.github.oliverschen.exception;
+package com.github.oliverschen.olimq.exception;
 
 /**
  * @author ck
