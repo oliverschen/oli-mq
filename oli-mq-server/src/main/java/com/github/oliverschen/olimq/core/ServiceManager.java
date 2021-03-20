@@ -1,5 +1,6 @@
 package com.github.oliverschen.olimq.core;
 
+import com.github.oliverschen.olimq.pojo.OliMsg;
 import org.springframework.stereotype.Component;
 
 /**
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Component;
 public class ServiceManager {
 
 
+    public void addOrCover(OliMsg<Object> msg) {
 
-
-
+    }
 }

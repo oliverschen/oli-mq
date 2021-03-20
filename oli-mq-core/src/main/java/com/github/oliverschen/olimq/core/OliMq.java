@@ -2,8 +2,8 @@ package com.github.oliverschen.olimq.core;
 
 import com.github.oliverschen.olimq.exception.OliException;
 import com.github.oliverschen.olimq.pojo.OliMsg;
-import lombok.NoArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -15,9 +15,9 @@ import java.util.concurrent.atomic.AtomicInteger;
  *     2. 数据保存在内存中，有 OOM 的风险
  * @author chenkui
  */
-@Slf4j
-@NoArgsConstructor
 public class OliMq {
+
+    Logger log = LoggerFactory.getLogger(OliMq.class);
 
     /**
      * 绑定 topic

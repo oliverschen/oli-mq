@@ -2,9 +2,6 @@ package com.github.oliverschen.olimq.core;
 
 import com.github.oliverschen.olimq.clinet.OliConsumer;
 import com.github.oliverschen.olimq.clinet.OliProducer;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -16,9 +13,6 @@ import java.util.concurrent.ConcurrentHashMap;
  *
  * @author chenkui
  */
-@Data
-@Builder
-@NoArgsConstructor
 public class OliBroker {
 
     /**
@@ -61,5 +55,16 @@ public class OliBroker {
      */
     public OliMq getTopic(String topic) {
         return topics.get(topic);
+    }
+
+    public OliBroker() {
+    }
+
+    public static ConcurrentHashMap<String, OliMq> getTopics() {
+        return topics;
+    }
+
+    public static void setTopics(ConcurrentHashMap<String, OliMq> topics) {
+        OliBroker.topics = topics;
     }
 }
