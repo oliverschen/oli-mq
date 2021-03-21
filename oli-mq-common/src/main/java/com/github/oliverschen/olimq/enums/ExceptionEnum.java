@@ -6,6 +6,11 @@ package com.github.oliverschen.olimq.enums;
  */
 public class ExceptionEnum {
 
+
+
+
+
+
     private final Integer code;
     private final String message;
 
