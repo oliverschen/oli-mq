@@ -1,2 +1,19 @@
 server:
   port: 5201
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+    local-cache-scope: statement
+    cache-enabled: false
+  mapper-locations: classpath:/mapper/*
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/olimq?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    username: root
+    password: root
+    hikari:
+      maximum-pool-size: 200
+      minimum-idle: 50
