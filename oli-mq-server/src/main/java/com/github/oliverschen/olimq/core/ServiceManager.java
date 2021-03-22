@@ -32,4 +32,13 @@ public class ServiceManager {
         boolean b = mq.sendMsg(msg);
         log.info("send msg [{}] to topic [{}] is {}", msg.getData(), topic, b);
     }
+
+    /**
+     * 拉取消息
+     * @param offset 偏移量
+     * @return
+     */
+    public OliMsg<Object> obtain(Integer offset) {
+        return null;
+    }
 }

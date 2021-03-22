@@ -3,10 +3,7 @@ package com.github.oliverschen.olimq.api;
 import com.github.oliverschen.olimq.core.ServiceManager;
 import com.github.oliverschen.olimq.pojo.OliMsg;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 import static com.github.oliverschen.olimq.constant.SystemConstant.OK;
@@ -29,6 +26,17 @@ public class ServiceController {
     public String create(@RequestBody OliMsg<Object> msg) {
         serviceManager.addOrCover(msg);
         return OK;
+    }
+
+    /**
+     * 获取消息
+     * 没有指定 offset 时全量拉取，如果传了 offset 时在 offset 处拉取
+     * @param offset 偏移量
+     * @return oliMsg<T>
+     */
+    @GetMapping
+    public OliMsg<Object> obtain(@RequestParam("offset") Integer offset) {
+        return serviceManager.obtain(offset);
     }
 
 
