@@ -22,8 +22,6 @@ public class ServiceManager {
     @Autowired
     private OliMessageDao messageDao;
 
-    public static final OliBroker BROKER = new OliBroker();
-
     /**
      * 添加或者覆盖 topic
      *
@@ -32,11 +30,8 @@ public class ServiceManager {
     public void addOrCover(OliMessage msg) {
         String topic = msg.getTopicName();
         OliMessage save = messageDao.save(msg);
-
-        OliMq mq = Optional.ofNullable(BROKER.getTopic(topic))
-                .orElseThrow(() -> new OliException("topic [" + topic + "] is not found"));
-//        boolean b = mq.sendMsg(msg);
-//        log.info("send msg [{}] to topic [{}] is {}", msg.getData(), topic, b);
+        OliMessage mq = Optional.of(save).orElseThrow(() -> new OliException("topic [" + topic + "] is not found"));
+        log.info("send msg [{}] to topic [{}] is {}", msg.getData(), topic,mq.getId());
     }
 
     /**
