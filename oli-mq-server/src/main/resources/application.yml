@@ -1,13 +1,6 @@
 server:
   port: 5201
 
-mybatis:
-  configuration:
-    map-underscore-to-camel-case: true
-    local-cache-scope: statement
-    cache-enabled: false
-  mapper-locations: classpath:/mapper/*
-
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -17,3 +10,14 @@ spring:
     hikari:
       maximum-pool-size: 200
       minimum-idle: 50
+  jpa:
+    database: mysql
+    database-platform: mysql
+    # 自动生成DDL
+    generate-ddl: true
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL57Dialect

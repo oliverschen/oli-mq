@@ -1,6 +1,7 @@
 package com.github.oliverschen.olimq.api;
 
 import com.github.oliverschen.olimq.core.ServiceManager;
+import com.github.oliverschen.olimq.pojo.OliMessage;
 import com.github.oliverschen.olimq.pojo.OliMsg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +24,7 @@ public class ServiceController {
      * 接收创建消息
      */
     @PostMapping
-    public String create(@RequestBody OliMsg<Object> msg) {
+    public String create(@RequestBody OliMessage msg) {
         serviceManager.addOrCover(msg);
         return OK;
     }

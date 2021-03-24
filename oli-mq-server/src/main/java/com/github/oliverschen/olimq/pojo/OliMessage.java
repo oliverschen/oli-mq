@@ -1,57 +1,53 @@
 package com.github.oliverschen.olimq.pojo;
 
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import javax.persistence.*;
 import java.io.Serializable;
 
 /**
  * @author ck
  */
+@Entity
+@Table(name = "oli_message")
+@EntityListeners(AuditingEntityListener.class)
 public class OliMessage implements Serializable {
 
-    public OliMessage() {
-        this.timestamp = System.currentTimeMillis();
-    }
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    /**
-     * 消息头
-     */
-    private Object header;
+    @Column(name = "header",columnDefinition = "varchar(1024) comment '消息头'")
+    private String header;
 
-    /**
-     * 唯一消息 ID，自增
-     */
-    private Long messageId;
+    @Column(name = "data",columnDefinition = "text comment '数据'")
+    private String data;
 
-    /**
-     * 数据
-     */
-    private Object data;
-
-    /**
-     * 时间戳
-     */
+    @CreatedDate
+    @Column(name = "timestamp",columnDefinition = "bigint comment '时间戳'")
     private long timestamp;
 
-
-    /**
-     * 分组
-     */
+    @Column(name = "group_id",columnDefinition = "varchar(30) comment '分组'")
     private String groupId;
 
-    /**
-     * topic 名称
-     */
+    @Column(name = "topic_name",columnDefinition = "varchar(40) comment 'topic名称'")
     private String topicName;
 
-    public void setHeader(Object header) {
+    public void setHeader(String header) {
         this.header = header;
     }
 
-    public void setMessageId(Long messageId) {
-        this.messageId = messageId;
+    public void setData(String data) {
+        this.data = data;
     }
 
-    public void setData(Object data) {
-        this.data = data;
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public void setTimestamp(long timestamp) {
@@ -68,10 +64,6 @@ public class OliMessage implements Serializable {
 
     public Object getHeader() {
         return header;
-    }
-
-    public Long getMessageId() {
-        return messageId;
     }
 
     public Object getData() {
